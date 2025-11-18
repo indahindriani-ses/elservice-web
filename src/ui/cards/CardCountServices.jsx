@@ -2,24 +2,24 @@ export default function CardCountServices({ title, count, percentage, isActive =
   return (
     <div 
       className={`
-        relative rounded-xl p-4 transition-all duration-500 ease-in-out cursor-pointer group shadow-lg
+        relative rounded-2xl p-5 transition-all duration-500 ease-in-out cursor-pointer group
         ${isActive 
-          ? 'bg-gradient-to-br from-purple-600 to-purple-500 text-white shadow-lg scale-[1.02]' 
-          : 'bg-white text-gray-900 hover:bg-gradient-to-br hover:from-purple-600 hover:to-purple-500 hover:text-white hover:shadow-xl hover:scale-[1.02]'
+          ? 'bg-gradient-to-br from-purple-600 to-purple-500 text-white shadow-xl' 
+          : 'bg-white text-gray-900 hover:bg-gradient-to-br hover:from-purple-600 hover:to-purple-500 hover:text-white hover:shadow-xl'
         }
       `}
     >
-      {/* Header with title and edit icon */}
-      <div className="flex items-center justify-between mb-3">
-        <h3 className={`text-sm font-semibold ${isActive ? 'text-white' : 'text-gray-900 group-hover:text-white'} transition-colors duration-500`}>
+      {/* Header with title and arrow icon */}
+      <div className="flex items-center justify-between mb-4">
+        <h3 className={`text-sm font-medium ${isActive ? 'text-white/90' : 'text-gray-600 group-hover:text-white/90'} transition-colors duration-500`}>
           {title}
         </h3>
         <button 
           className={`
-            p-1.5 rounded-full transition-all duration-500
+            p-1.5 rounded-lg transition-all duration-500 rotate-45
             ${isActive 
               ? 'bg-white/20 hover:bg-white/30' 
-              : 'bg-gray-100 hover:bg-gray-200 group-hover:bg-white/20 group-hover:hover:bg-white/30'
+              : 'bg-gray-50 hover:bg-gray-100 group-hover:bg-white/20 group-hover:hover:bg-white/30'
             }
           `}
         >
@@ -27,31 +27,31 @@ export default function CardCountServices({ title, count, percentage, isActive =
             xmlns="http://www.w3.org/2000/svg" 
             fill="none" 
             viewBox="0 0 24 24" 
-            strokeWidth={2} 
+            strokeWidth={2.5} 
             stroke="currentColor" 
-            className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-gray-600 group-hover:text-white'} transition-colors duration-500`}
+            className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-700 group-hover:text-white'} transition-colors duration-500`}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
           </svg>
         </button>
       </div>
 
       {/* Count */}
-      <div className={`text-4xl font-bold mb-2 ${isActive ? 'text-white' : 'text-gray-900 group-hover:text-white'} transition-colors duration-500`}>
+      <div className={`text-5xl font-bold mb-4 ${isActive ? 'text-white' : 'text-gray-900 group-hover:text-white'} transition-colors duration-500`}>
         {count}
       </div>
 
       {/* Percentage increase */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1.5">
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 24 24" 
+          viewBox="0 0 20 20" 
           fill="currentColor" 
-          className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-purple-600 group-hover:text-white'} transition-colors duration-500`}
+          className={`w-3.5 h-3.5 ${isActive ? 'text-white/80' : 'text-purple-500 group-hover:text-white/80'} transition-colors duration-500`}
         >
-          <path fillRule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
+          <path fillRule="evenodd" d="M10 17a.75.75 0 0 1-.75-.75V5.612L5.29 9.77a.75.75 0 0 1-1.08-1.04l5.25-5.5a.75.75 0 0 1 1.08 0l5.25 5.5a.75.75 0 1 1-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0 1 10 17Z" clipRule="evenodd" />
         </svg>
-        <span className={`text-xs font-medium ${isActive ? 'text-white' : 'text-purple-600 group-hover:text-white'} transition-colors duration-500`}>
+        <span className={`text-xs ${isActive ? 'text-white/80' : 'text-gray-500 group-hover:text-white/80'} transition-colors duration-500`}>
           {percentage} Increase From Last Month
         </span>
       </div>
