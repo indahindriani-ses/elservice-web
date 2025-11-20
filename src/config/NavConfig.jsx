@@ -30,8 +30,8 @@ export const navConfig = {
   admin: [
     { label: "Dashboard", to: "/admin/dashboard", icon: icons.dashboard },
     { label: "Branch", to: "/admin/branches", icon: icons.branch },
-    { label: "Product", to: "/admin/products", icon: icons.product, disabled: true },
-    { label: "Teknisi", to: "/admin/teknisi", icon: icons.teknisi, disabled: true },
+    { label: "Product", to: "/admin/products", icon: icons.product },
+    { label: "Teknisi", to: "/admin/teknisi", icon: icons.teknisi },
     { label: "Operator", to: "/admin/operators", icon: icons.operator },
   ],
   operator: [
