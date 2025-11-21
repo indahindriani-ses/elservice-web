@@ -1,99 +1,135 @@
 import { useState } from "react";
-import CheckDetailAlat from "../buttons/CheckDetailAlat";
-import DeleteAlat from "../buttons/DeleteAlat";
+import AddAlat from "../buttons/AddAlat";
+import CariAlat from "../operator/CariAlat";
 
-export default function CardAlatProduct({ 
-  imageSrc, 
-  namaAlat = "Nama Alat", 
-  jenisAlat = "Mesin Cuci Front Load",
-  isActive = true,
-  onCheckDetail,
-  onDelete
-}) {
-  const [isClicked, setIsClicked] = useState(false);
+export default function CardAlatProduct() {
+  const [selectedCard, setSelectedCard] = useState(null);
 
-  const handleCardClick = () => {
-    setIsClicked(!isClicked);
+  const handleAddAlat = () => {
+    console.log("Add Alat clicked");
+    // Logic untuk add alat
   };
 
-  // Tentukan warna border dan shadow berdasarkan status
-  const getBorderColor = () => {
-    if (isClicked) {
-      return isActive ? 'border-blue-500' : 'border-red-500';
-    }
-    return 'border-gray-300';
+  const handleSearch = (searchTerm) => {
+    console.log("Search Alat:", searchTerm);
+    // Logic untuk search alat
   };
 
-  const getShadowColor = () => {
-    if (isClicked) {
-      return isActive ? 'shadow-[0_8px_0_0_rgb(59,130,246)]' : 'shadow-[0_8px_0_0_rgb(239,68,68)]';
+  const handleCardClick = (id) => {
+    setSelectedCard(selectedCard === id ? null : id);
+  };
+
+  const handleCheckDetail = (id) => {
+    console.log("Check Detail:", id);
+    // Logic untuk check detail
+  };
+
+  const handleDelete = (id) => {
+    console.log("Delete:", id);
+    // Logic untuk delete
+  };
+
+  // Sample data alat
+  const alats = [
+    { id: 1, nama: "Mesin Cuci Front Load", isActive: true },
+    { id: 2, nama: "Kulkas 2 Pintu", isActive: true },
+    { id: 3, nama: "AC Split 1 PK", isActive: true },
+    { id: 4, nama: "Rice Cooker", isActive: false },
+    { id: 5, nama: "Kipas Angin", isActive: false },
+    { id: 6, nama: "Microwave", isActive: true },
+    { id: 7, nama: "Televisi", isActive: false },
+    { id: 8, nama: "Dispenser", isActive: true },
+    { id: 9, nama: "Oven", isActive: false },
+  ];
+
+  const getBorderColor = (id, isActive) => {
+    if (selectedCard === id) {
+      return isActive ? 'border-purple-500 shadow-[0_6px_0_0_rgb(168,85,247)]' : 'border-red-500 shadow-[0_6px_0_0_rgb(239,68,68)]';
     }
-    return 'shadow-sm';
+    return 'border-gray-700';
   };
 
   return (
-    <div 
-      onClick={handleCardClick}
-      className={`bg-white rounded-2xl border-2 ${getBorderColor()} ${getShadowColor()} hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden`}
-    >
-      {/* Image Container */}
-      <div className="relative">
-        <img 
-          src={imageSrc || "https://via.placeholder.com/400x200"} 
-          alt={namaAlat}
-          className="w-full h-48 object-cover"
-        />
-        {/* Status Badge */}
-        <div className="absolute top-3 right-3">
-          <span className={`px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 ${
-            isActive 
-              ? 'bg-green-500 text-white' 
-              : 'bg-gray-400 text-white'
-          }`}>
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            {isActive ? 'Aktif' : 'Non- aktif'}
-          </span>
-        </div>
+    <div className="bg-white rounded-2xl p-6 shadow-sm">
+      {/* Search & Add Button - Sejajar */}
+      <div className="flex items-center justify-between mb-6">
+        <CariAlat onSearch={handleSearch} />
+        <AddAlat onClick={handleAddAlat} />
       </div>
 
-      {/* Content */}
-      <div className="p-4">
-        {/* Nama Alat & Jenis Alat */}
-        <div className="mb-4">
-          <h3 className="text-base font-bold text-gray-900 mb-2">{namaAlat}</h3>
-          <div className="px-3 py-2 bg-purple-100 border border-purple-300 rounded-lg text-sm text-gray-700 text-center">
-            {jenisAlat}
-          </div>
-        </div>
+      {/* Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {alats.map((alat) => (
+          <div
+            key={alat.id}
+            onClick={() => handleCardClick(alat.id)}
+            className={`bg-white rounded-2xl border-2 ${getBorderColor(alat.id, alat.isActive)} overflow-hidden cursor-pointer transition-all duration-300`}
+          >
+            {/* Image Container */}
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400" 
+                alt={alat.nama}
+                className="w-full h-32 object-cover"
+              />
+              {/* Status Badge */}
+              <div className="absolute top-2 right-2">
+                <span className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1 ${
+                  alat.isActive 
+                    ? 'bg-white text-green-600 border border-green-600' 
+                    : 'bg-white text-red-700 border border-red-700'
+                }`}>
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                  {alat.isActive ? 'Aktif' : 'Non-aktif'}
+                </span>
+              </div>
+            </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2">
-          <div onClick={(e) => e.stopPropagation()} className="flex-1">
-            <CheckDetailAlat 
-              isActive={isActive}
-              onClick={() => onCheckDetail(isActive)}
-            />
+            {/* Content */}
+            <div className="p-3.5">
+              <div className="flex items-center gap-2.5 mb-3">
+                <h3 className="text-sm font-bold text-gray-900 whitespace-nowrap">Nama Alat</h3>
+                <input 
+                  type="text" 
+                  value={alat.nama}
+                  readOnly
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex-1 px-3 py-1.5 text-sm border-2 border-purple-500 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 min-w-0"
+                />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(alat.id);
+                  }}
+                  className="w-9 h-9 bg-white border-2 border-gray-900 rounded-lg hover:bg-red-50 transition-colors flex items-center justify-center flex-shrink-0"
+                >
+                  <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Check Detail Button */}
+              <div className="flex justify-end">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCheckDetail(alat.id);
+                  }}
+                  className="py-1.5 px-4 bg-white border-2 border-gray-800 text-gray-900 text-xs font-semibold rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  Check Detail
+                </button>
+              </div>
+            </div>
           </div>
-          <div onClick={(e) => e.stopPropagation()}>
-            <DeleteAlat onClick={onDelete} />
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
 }
-
-// Sample data untuk testing
-export const sampleAlat = [
-  { id: 1, namaAlat: "Nama Alat", jenisAlat: "Mesin Cuci Front Load", isActive: true, imageSrc: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=400" },
-  { id: 2, namaAlat: "Nama Alat", jenisAlat: "Kulkas 2 Pintu", isActive: true, imageSrc: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400" },
-  { id: 3, namaAlat: "Nama Alat", jenisAlat: "AC Split 1 PK", isActive: true, imageSrc: "https://images.unsplash.com/photo-1631545806609-71f0e8046f29?w=400" },
-  { id: 4, namaAlat: "Nama Alat", jenisAlat: "Rice Cooker", isActive: false, imageSrc: "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=400" },
-  { id: 5, namaAlat: "Nama Alat", jenisAlat: "Kipas Angin", isActive: false, imageSrc: "https://images.unsplash.com/photo-1614252368530-e5ffae845ad1?w=400" },
-  { id: 6, namaAlat: "Nama Alat", jenisAlat: "Microwave", isActive: true, imageSrc: "https://images.unsplash.com/photo-1585659722417-c5c6e82e60c9?w=400" },
-  { id: 7, namaAlat: "Nama Alat", jenisAlat: "Televisi", isActive: false, imageSrc: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400" },
-  { id: 8, namaAlat: "Nama Alat", jenisAlat: "Dispenser", isActive: true, imageSrc: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400" },
-  { id: 9, namaAlat: "Nama Alat", jenisAlat: "Oven", isActive: true, imageSrc: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400" },
-];
